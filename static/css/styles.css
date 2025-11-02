@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f9fa; 
+    color: #343a40;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: #212529;
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+.nav-link {
+    transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+}
+
+main.container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+main.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.rounded-circle {
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 250px;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.rounded-circle:hover {
+    transform: rotate(2deg);
+}
+
+section.my-4 {
+    padding: 1.5rem;
+    background-color: #fdfdfd;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section.my-4:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
+}
+
+section h2 {
+    color: #0d6efd;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+section ul li {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-bottom: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+section ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #0d6efd;
+    font-weight: 700;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+form {
+    padding: 1.5rem;
+    background-color: #fdfdfd;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7; 
+    border-color: #0a58ca;
+    transform: translateY(-2px);
+}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="{{ url_for('static', filename='images/photo.jpg') }}" class="img-fluid rounded-circle" alt="Моє фото">
+        </div>
+        
+        <div class="col-md-8">
+            <h1>Владислав</h1>
+            <p class="lead">Розробник програмного забезпечення</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <section id="about" class="my-4">
+        <h2>Про себе</h2>
+        <p>Досвідчений Back-end розробник з 2-річним комерційним досвідом у Laravel. Зацікавлений у створенні ефективних та масштабованих веб-додатків.</p>
+    </section>
+
+    <section id="education" class="my-4">
+        <h2>Освіта</h2>
+        <ul>
+            <li>
+                <strong>Карпатський національний університет імені Василя Стефаника</strong><br>
+                Спеціальність: Інженерія програмного забезпечення (ІПЗ)<br>
+                (2024 - по теперішній час, 3-й курс)
+            </li>
+            <li>
+                <strong>Коломийський політехнічний фаховий коледж</strong><br>
+                Ступінь: Фаховий молодший бакалавр<br>
+                Спеціальність: Інженерія програмного забезпечення (ІПЗ)
+            </li>
+        </ul>
+    </section>
+
+    <section id="skills" class="my-4">
+        <h2>Навички та Технології</h2>
+        <ul>
+            <li><strong>Back-end:</strong> PHP, Laravel (2 роки досвіду), C++</li>
+            <li><strong>Front-end:</strong> HTML5, CSS3, JavaScript, React, Angular</li>
+            <li><strong>Інструменти:</strong> Git</li>
+        </ul>
+    </section>
+
+    <section id="experience" class="my-4">
+        <h2>Досвід роботи / Проекти</h2>
+        <ul>
+            <li><strong>Task Tracker:</strong> Розробка системи управління завданнями.</li>
+            <li><strong>Сайти автобусних перевезень:</strong> Участь у розробці та підтримці веб-сервісів для компаній-перевізників.</li>
+        </ul>
+    </section>
+
+{% endblock %}
