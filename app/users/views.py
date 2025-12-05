@@ -86,31 +86,25 @@ def add_cookie():
     flash(f'Кукі "{key}" успішно додано.', 'success')
     return resp
 
-@users_bp.route('/delete-cookie', methods=['POST'])
+@users_bp.route('/delete_cookie', methods=['POST'])
 def delete_cookie():
-    if 'username' not in session:
-        return redirect(url_for('auth.login'))
-        
-    key_to_delete = request.form.get('key')
-    resp = make_response(redirect(url_for('users.profile')))
-    
-    if key_to_delete:
-        
-        if key_to_delete in request.cookies:
-            resp.delete_cookie(key_to_delete)
-            flash(f'Кукі "{key_to_delete}" видалено.', 'success')
-        else:
-            flash(f'Кукі "{key_to_delete}" не знайдено.', 'warning')
-    else:
-        
-        for key in request.cookies:
-            if key not in ['session', 'theme']: 
-                resp.delete_cookie(key)
-        flash('Всі кастомні кукі видалено.', 'success')
-        
+    key = request.form.get('key')
+    if key:
+        resp = make_response(redirect(url_for('users.profile')))
+        resp.delete_cookie(key)
+        flash(f'Кука «{key}» видалена', 'info')
     return resp
+    return redirect(url_for('users.profile'))
 
 
+@users_bp.route('/delete_all_cookies', methods=['POST'])
+def delete_all_cookies():
+    resp = make_response(redirect(url_for('users.profile')))
+    for key in request.cookies.keys():
+        if key != 'session':
+            resp.delete_cookie(key)
+    flash('Всі кастомні куки видалено', 'warning')
+    return resp
 
 @users_bp.route('/set-theme')
 def set_theme():
