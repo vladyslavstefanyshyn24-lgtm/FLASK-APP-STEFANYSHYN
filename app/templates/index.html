@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% from "macros/render_field.html" import render_field %}
+
+{% block content %}
+    <div class="text-center">
+        <h1>Ласкаво просимо </h1>
+        <p class="lead text-muted"> Лабораторної роботи №5.</p>
+        <hr class="my-4">
+        <p>Використовуйте навігаційне меню, щоб перейти до:</p>
+        <p>
+            <a class="btn btn-primary" href="{{ url_for('contact') }}">Контактної форми (Завд. 1)</a>
+            <a class="btn btn-secondary" href="{{ url_for('users.login') }}">Сторінки входу (Завд. 2)</a>
+        </p>
+    </div>
+{% endblock %}

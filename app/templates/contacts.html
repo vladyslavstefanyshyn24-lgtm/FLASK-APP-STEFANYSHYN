@@ -1,22 +1,27 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <h1>Контакти</h1>
-    <p>Ви можете зв'язатися зі мною через цю форму.</p>
+{% from "macros/render_field.html" import render_field %}
 
-    <form>
-        <div class="mb-3">
-            <label for="name" class="form-label">Ваше ім'я</label>
-            <input type="text" class="form-control" id="name">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Ваш Email</label>
-            <input type="email" class="form-control" id="email">
-        </div>
-        <div class="mb-3">
-            <label for="message" class="form-label">Повідомлення</label>
-            <textarea class="form-control" id="message" rows="5"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Відправити</button>
+{% block content %}
+<div class="container py-5">
+    <h1>Зв'яжіться з нами</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="alert alert-{{ category }}">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+
+        {{ render_field(form.name) }}
+        {{ render_field(form.email) }}
+        {{ render_field(form.message) }}
+
+        <button type="submit" class="btn btn-primary">Надіслати</button>
     </form>
+</div>
 {% endblock %}

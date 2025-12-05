@@ -1,2 +1,1 @@
-DEBUG = True
-TESTING = False
+SECRET_KEY = 'my-key-to-app'
