@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.title.label(class="form-label") }}
+        {{ form.title(class="form-control") }}
+        {% for error in form.title.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.content.label(class="form-label") }}
+        {{ form.content(class="form-control") }}
+        {% for error in form.content.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.category.label(class="form-label") }}
+        {{ form.category(class="form-select") }}
+    </div>
+
+    <div class="form-check mb-3">
+        {{ form.is_active(class="form-check-input") }}
+        {{ form.is_active.label(class="form-check-label") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.posted.label(class="form-label") }}
+        {{ form.posted(class="form-control", type="datetime-local") }}
+    </div>
+
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('posts.index') }}" class="btn btn-secondary">Скасувати</a>
+</form>
+{% endblock %}

@@ -1,19 +1,28 @@
-from flask import Flask
-from loguru import logger
+from flask import Flask, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from config import config
 
- 
-app = Flask(__name__)
+db = SQLAlchemy()
+migrate = Migrate()
 
+def create_app(config_name='development'):
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
 
-app.config.from_pyfile('../config.py')
+    db.init_app(app)
+    migrate.init_app(app, db)
 
+    from app.posts import post_bp
+    app.register_blueprint(post_bp)
 
-logger.add("logs/contact_form.log", rotation="10 MB", retention="1 month", level="INFO", 
-           format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}")
+    @app.route('/')
+    def home():
+        return redirect(url_for('posts.index'))
 
-
-from app.users.views import users_bp
-app.register_blueprint(users_bp)
-
-
-from app import views
+    with app.app_context():
+        from app.posts import models
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('404.html'), 404
+    return app

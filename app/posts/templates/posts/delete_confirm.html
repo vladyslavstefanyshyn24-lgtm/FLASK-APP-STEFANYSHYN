@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Видалити пост?</h1>
+<p>Ви дійсно хочете видалити "{{ post.title }}"?</p>
+
+<form method="POST">
+    <button type="submit" class="btn btn-danger">Видалити</button>
+    <a href="{{ url_for('posts.detail', id=post.id) }}" class="btn btn-secondary">Скасувати</a>
+</form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Сторінка не знайдена{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1>404</h1>
+    <h3>Сторінку не знайдено</h3>
+    <p>Вибачте, але сторінка, яку ви шукаєте, не існує.</p>
+    <a class="btn btn-primary mt-3" href="{{ url_for('posts.index') }}">Повернутися на головну</a>
+</div>
+{% endblock %}
