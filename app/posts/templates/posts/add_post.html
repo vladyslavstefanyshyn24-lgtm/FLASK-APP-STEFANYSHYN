@@ -1,43 +1,56 @@
 {% extends "base.html" %}
 
+{% block title %}Створити пост{% endblock %}
+
 {% block content %}
-<h1>{{ title }}</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Новий пост</h1>
 
-<form method="POST">
-    {{ form.hidden_tag() }}
+    <form method="POST" class="row g-3">
+        {{ form.hidden_tag() }}
 
-    <div class="mb-3">
-        {{ form.title.label(class="form-label") }}
-        {{ form.title(class="form-control") }}
-        {% for error in form.title.errors %}
-            <div class="text-danger">{{ error }}</div>
-        {% endfor %}
-    </div>
+        <div class="col-md-8">
+            {{ form.title.label(class="form-label") }}
+            {{ form.title(class="form-control", placeholder="Заголовок") }}
+        </div>
 
-    <div class="mb-3">
-        {{ form.content.label(class="form-label") }}
-        {{ form.content(class="form-control") }}
-        {% for error in form.content.errors %}
-            <div class="text-danger">{{ error }}</div>
-        {% endfor %}
-    </div>
+        <div class="col-md-4">
+            {{ form.category.label(class="form-label") }}
+            {{ form.category(class="form-select") }}
+        </div>
 
-    <div class="mb-3">
-        {{ form.category.label(class="form-label") }}
-        {{ form.category(class="form-select") }}
-    </div>
+        <div class="col-12">
+            {{ form.content.label(class="form-label") }}
+            {{ form.content(class="form-control", rows=10, placeholder="Текст поста...") }}
+        </div>
 
-    <div class="form-check mb-3">
-        {{ form.is_active(class="form-check-input") }}
-        {{ form.is_active.label(class="form-check-label") }}
-    </div>
+        <div class="col-md-4">
+            {{ form.author_id.label(class="form-label") }}
+            {{ form.author_id(class="form-select") }}
+        </div>
 
-    <div class="mb-3">
-        {{ form.posted.label(class="form-label") }}
-        {{ form.posted(class="form-control", type="datetime-local") }}
-    </div>
+        <div class="col-md-4">
+            {{ form.posted.label(class="form-label") }}
+            {{ form.posted(class="form-control") }}
+        </div>
 
-    {{ form.submit(class="btn btn-success") }}
-    <a href="{{ url_for('posts.index') }}" class="btn btn-secondary">Скасувати</a>
-</form>
+        <div class="col-md-4">
+            <div class="form-check mt-4">
+                {{ form.is_active(class="form-check-input") }}
+                {{ form.is_active.label(class="form-check-label") }}
+            </div>
+        </div>
+
+        <div class="col-12">
+            {{ form.tags.label(class="form-label") }}
+            {{ form.tags(class="form-select", multiple=true, size=6) }}
+            <div class="form-text">Утримуйте Ctrl для вибору кількох тегів</div>
+        </div>
+
+        <div class="col-12">
+            {{ form.submit(class="btn btn-success btn-lg") }}
+            <a href="{{ url_for('posts.list_posts') }}" class="btn btn-secondary btn-lg ms-2">Скасувати</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

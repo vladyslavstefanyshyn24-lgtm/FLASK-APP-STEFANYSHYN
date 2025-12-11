@@ -1,23 +1,12 @@
-from flask import render_template, redirect, url_for, flash, request
-from .. import db
-from .models import Post
-from .forms import PostForm
+from flask import render_template, redirect, url_for, flash
 from . import post_bp
+from .forms import PostForm
+from .models import Post, Tag
+from app import db
 
-@post_bp.route('/')
-def index():
-    posts = db.session.scalars(
-        db.select(Post).filter_by(is_active=True).order_by(Post.posted.desc())
-    ).all()
-    return render_template('all_posts.html', posts=posts)
 
-@post_bp.route('/<int:id>')
-def detail(id):
-    post = db.get_or_404(Post, id)
-    return render_template('detail_post.html', post=post)
-
-@post_bp.route('/create', methods=['GET', 'POST'])
-def create():
+@post_bp.route('/post/create', methods=['GET', 'POST'])
+def create_post():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(
@@ -26,38 +15,28 @@ def create():
             category=form.category.data,
             is_active=form.is_active.data,
             posted=form.posted.data,
-            author='Stefanyshyn'
+            user_id=form.author_id.data
         )
         db.session.add(post)
         db.session.commit()
+
+        if form.tags.data:
+            selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
+            post.tags.extend(selected_tags)
+            db.session.commit()
+
         flash('Пост успішно створено!', 'success')
-        return redirect(url_for('posts.index'))
-    return render_template('add_post.html', form=form, title='Новий пост')
+        return redirect(url_for('posts.list_posts'))
 
-@post_bp.route('/<int:id>/update', methods=['GET', 'POST'])
-def update(id):
-    post = db.get_or_404(Post, id)
-    form = PostForm(obj=post)
-    
-    if form.validate_on_submit():
-        post.title = form.title.data
-        post.content = form.content.data
-        post.category = form.category.data
-        post.is_active = form.is_active.data
-        post.posted = form.posted.data
-        db.session.commit()
-        flash('Пост оновлено!', 'info')
-        return redirect(url_for('posts.detail', id=post.id))
+    return render_template('add_post.html', form=form)
 
-    form.posted.data = post.posted
-    return render_template('add_post.html', form=form, title='Редагувати пост')
 
-@post_bp.route('/<int:id>/delete', methods=['GET', 'POST'])
-def delete(id):
-    post = db.get_or_404(Post, id)
-    if request.method == 'POST':
-        db.session.delete(post)
-        db.session.commit()
-        flash('Пост видалено!', 'danger')
-        return redirect(url_for('posts.index'))
-    return render_template('delete_confirm.html', post=post)
+@post_bp.route('/post', endpoint='list_posts')
+def all_posts():
+    posts = Post.query.order_by(Post.posted.desc()).all()
+    return render_template('all_posts.html', posts=posts)
+
+@post_bp.route('/post/<int:id>', endpoint='detail')
+def detail_post(id):
+    post = Post.query.get_or_404(id)
+    return render_template('detail_post.html', post=post)
